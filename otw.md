@@ -1,3 +1,5 @@
+# Bandit OverTheWire
+
 ### Level 0:
 - used `man ssh` command and read that `ssh username@host -p port` and then entering password when prompted allows you to login
 
@@ -45,16 +47,23 @@
 - used `base64 -d data.txt` with `-d` option to decode the given file from base64 format
 
 ### Level 11-12:
-- since input data is encoded in rot13, we apply rot13 to it using the `tr` command to turn it back to normal
+- since input data is encoded in rot13, we apply rot13 to it using the `tr` (translate) command to turn it back to normal
 - used `cat data.txt | tr 'a-zA-Z' 'n-za-mN-ZA-M'` to pipe text from `data.txt` to `tr` command and print rotated text output
 
 ### Level 12-13:
 - used `mktemp -d` to make a temp folder
-- copied `data.txt` into the temp folder and renamed it to `copieddata.txt` by using `mv /tmp/tmp.RKQRU3eyxM/data.txt /tmp/tmp.RKQRU3eyxM/copieddata.txt`
-- see the binary format of the hexdump with 
+- `cd` into temp folder
+- copied `data.txt` from `~/` home dir into the current folder `.` and renamed it to `hexdata`
+- `xxd -r hexdata bincompdata` to revert and store the hexdump back as binary
+- now we observe for file signatures in the hexdump to identify the compression type and then use the respective file types to uncompress the data till we get a human readable form
+- used `gzip`, `bzip2` and `tar`
 
 ### Level 13-14:
-- 
+- obtained the private RSA SSH key
+- used `ssh bandit14@localhost -i sshkey.private -p 2220` in bandit13 user and logged in to bandit14
 
 ### Level 14-15:
-- 
+- used `telnet localhost 30000` and then entered the password
+
+### Level 15-16:
+- used `openssl s_client -connect localhost:30001` and entered password
