@@ -1,4 +1,4 @@
-# Bandit OverTheWire
+# OverTheWire - Bandit
 
 ### Level 0:
 - used `man ssh` command and read that `ssh username@host -p port` and then entering password when prompted allows you to login
@@ -61,9 +61,12 @@
 ### Level 13-14:
 - obtained the private RSA SSH key
 - used `ssh bandit14@localhost -i sshkey.private -p 2220` in bandit13 user and logged in to bandit14
+- `localhost` since we are already logged into bandit, and `-i` to point it to our private key
+- got access into bandit14, then found password in `/etc/bandit_pass/bandit14`
 
 ### Level 14-15:
-- used `telnet localhost 30000` and then entered the password
+- used `telnet localhost 30000` to communicate with localhost(bandit server) on port 30000 and submitted old password to obtain next password
 
 ### Level 15-16:
 - used `openssl s_client -connect localhost:30001` and entered password
+- `s_client` directs it to initiate a SSL/TLS handshake on localhost(bandit) on the specified port
