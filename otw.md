@@ -24,7 +24,7 @@ ls -la->inhere->20 dir -> each dir-> files -> nested loops -> outer loop run thr
 # LEVEL 6
 Just applied the find criteria like size 33c , user bandit7 and group bandit 6 , got the path -> cat path and got password
 
-# LEVEL 7
+#  LEVEL 7
 ls -la -> found data.txt -> applied grep -i "millionth" data.txt to directly get password
 
 # LEVEL 8
