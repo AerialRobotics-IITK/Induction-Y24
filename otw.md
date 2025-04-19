@@ -61,6 +61,22 @@ now we have to decode the text  given in the file which is encoded in base64
 first we command cat data.txt which gives us the encoded data then decode it by giving command echo "encoded text" | base64 --decode which gives us the pass
 
 level 12:
+now the pass for the next level , a-z and A-Z has been rotated by 13 places
+so first I cat data.txt which gives me the encrypted pass
+then I command echo "encrypted" | tr 'A-Za-z' 'N-ZA-Mn-za-m' which gives us the pass
+
+level 13:
+first make new temp dir by mktemp -d
+then copy data.txt in this directory using cp data.txt name of direc
+now cd and navigate in this directory and then rename the data.txt file
+now decode hexadeci by command xxd -r hexadata bindata
+now see compressed type of this file and do various decompressing again
+ex for gzip rename into bindata.gz and then decompress it by command gzip -d bindata.gz
+for bzip2 rename to bindata.bz2 and decompress I by command bzip2 -d bindata.bz2
+for tar rename it to bindata.tar and decompress it by command tar -xf bindata.tar
+repeat this until you get ascii text file
+
+level 14:
 
 
 
