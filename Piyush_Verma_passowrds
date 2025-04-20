@@ -1,0 +1,23 @@
+lvl 1- ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
+lvl2-263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+lvl 3-MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+lvl4-2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
+lvl 5 -password in file07 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw(brute force soln cat all files) optimal soln- file./*(list all files and their data)
+lvl 6- password in .file2 in maybehere07; password is HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+lvl 7- password is morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj(use find / -type f -user bandit7 -group bandit6 -size 33c)
+lvl8-dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc(use grep "millionth" data.txt)
+lvl9- 4CKMh1JI91bUIZZPXDqGanal4xvAg0J( cat data.txt | sort | uniq -u lvl 1- ZjLjTmM6FvvyRnrb2rfNWOZOTa6ip5If
+lvl2-263JGJPfgU6LtdEvgfWU1XP5yac29mFx
+lvl 3-MNk8KNH3Usiio41PRUEoDFPqfxLPlSmx
+lvl4-2WmrDFRmJIq3IPxneAaMGhap0pFhF3NJ
+lvl 5 -password in file07 4oQYVPkxZOOEOO5pTW81FB8j8lxXGUQw(brute force soln cat all files) optimal soln- file./*(list all files and their data)
+lvl 6- password in .file2 in maybehere07; password is HWasnPhtq9AVKe0dmk45nxy20cvUa6EG
+lvl 7- password is morbNTDkSW6jIlUc0ymOdMaLnOlFVAaj(use find / -type f -user bandit7 -group bandit6 -size 33c)
+lvl8-dfwvzFQi4mU0wfNbFOe9RoWskMLg7eEc(use grep "millionth" data.txt)
+lvl9- 4CKMh1JI91bUIZZPXDqGanal4xvAg0JM( cat data.txt | sort | uniq -u 
+lvl10- FGUW5ilLVJrxX9kMYMmlN4MgbpfMiqey(grep -a '^=' data.txt)
+lvl11-dtR173fZKb0RRsDFSGsg2RWnpNVj3qRr(base64 -d)
+lvl12-7x16WNeHIi5YkIhWsfFIqoognUTyj9Q4(cat data.txt | tr '[a-zA-Z]' '[n-za-mN-ZA-M]')
+lvl13- FO5dwFsc0cbaIiH0h8J2eUks2vdTDwAn( first make a new dir by mkdir /tmp/mydr and then cp ~/data.txt decode.txt now check its filetype xxd -r decode.txt > decode now check file decode if gzipped then mv decode decode.gz(gzip can only read .gz files) and then gzip -d decode.gz now again check file decode if it shows bzipped then mv decode decode.bz2 bzip2 -d decode.bz2 now again cgheck file and keep on repeating steps if it shows pos text archive(GNU) then extract files from this box using tar--- mv decode decode.tar and then tar -xf decode.tar and then you get a file(check it by ls -a) and then repeat above steps till you get ascii text)
+lvl14-MU4VWeTyJk8ROof1qqmcBPaLh7lDCPvS(simply ssh -i ssh.private -p 2220 bandit14@localhost)
+lvl15-8xCjnmgoKbGLhHFAZlGE5Tmu4M2tKJQo(simply telnet localhost 30000)
