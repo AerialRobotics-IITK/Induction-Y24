@@ -1,0 +1,100 @@
+Arrested Development|Fantasy|1|0|0|8|16|189|486
+Homeland|Sci-Fi|5|0|0|1|20|293|460
+Dark|Drama|2|0|0|7|6|141|317
+Game of Thrones|Fantasy|7|0|0|6|23|148|342
+Arrested Development|Romance|9|0|0|7|11|266|384
+Money Heist|Romance|10|0|0|3|22|259|447
+The Queen's Gambit|Sci-Fi|7|0|0|10|9|217|515
+Rick and Morty|Romance|6|0|0|7|24|263|404
+Better Call Saul|Horror|8|0|0|4|19|167|454
+The Office|Sci-Fi|3|0|0|10|10|129|397
+Mindhunter|Romance|6|0|0|9|24|176|286
+Stranger Things|Romance|3|0|0|7|21|295|435
+The Handmaid's Tale|Thriller|1|0|0|8|10|299|566
+Dark|Thriller|5|0|0|1|11|151|383
+The Handmaid's Tale|Romance|8|0|0|10|16|193|451
+Stranger Things|Thriller|6|0|0|8|19|256|360
+Loki|Sci-Fi|3|0|0|4|7|215|361
+Homeland|Comedy|8|0|0|4|23|166|416
+Fargo|Horror|7|0|0|5|8|147|442
+Chernobyl|Thriller|2|0|0|3|7|281|511
+Breaking Bad|Documentary|7|0|0|4|8|171|401
+Peaky Blinders|Drama|1|0|0|1|16|254|374
+Stranger Things|Fantasy|9|0|0|9|23|215|374
+The Umbrella Academy|Action|5|0|0|8|13|193|372
+WandaVision|Sci-Fi|5|0|0|10|19|225|343
+This Is Us|Fantasy|4|0|0|10|13|184|306
+Dark|Comedy|10|0|0|4|10|257|424
+Breaking Bad|Fantasy|9|0|0|9|11|180|333
+WandaVision|Fantasy|4|0|0|3|8|188|349
+The 100|Sci-Fi|7|0|0|5|19|180|280
+Stranger Things|Fantasy|9|0|0|8|12|209|398
+Arrested Development|Sci-Fi|3|0|0|7|19|288|499
+Friends|Sci-Fi|7|0|0|4|10|266|493
+Narcos|Horror|5|0|0|2|13|136|406
+WandaVision|Thriller|1|0|0|1|21|243|519
+Friends|Action|6|0|0|4|11|153|409
+Loki|Drama|1|0|0|1|24|247|422
+Chernobyl|Thriller|9|0|0|8|17|207|458
+Sherlock|Drama|8|0|0|5|9|128|345
+Rick and Morty|Romance|1|0|0|8|6|225|458
+The Mandalorian|Thriller|8|0|0|10|7|158|370
+Lost|Romance|4|0|0|3|7|219|386
+Mindhunter|Romance|8|0|0|7|14|224|358
+BoJack Horseman|Comedy|7|0|0|4|15|246|434
+Better Call Saul|Sci-Fi|7|0|0|6|24|109|320
+Black Mirror|Thriller|6|0|0|7|15|292|547
+Stranger Things|Horror|4|0|0|8|14|204|321
+Chernobyl|Horror|5|0|0|4|8|281|558
+Better Call Saul|Action|5|0|0|1|15|118|396
+Stranger Things|Sci-Fi|2|0|0|10|20|267|537
+WandaVision|Sci-Fi|6|0|0|8|22|135|402
+Mindhunter|Comedy|1|0|0|7|11|172|398
+The Umbrella Academy|Horror|1|0|0|3|16|257|452
+Fargo|Sci-Fi|4|0|0|8|11|196|351
+The 100|Sci-Fi|9|0|0|8|8|186|301
+WandaVision|Documentary|8|0|0|5|19|261|513
+Lost|Fantasy|1|0|0|9|6|199|491
+BoJack Horseman|Thriller|7|0|0|2|12|265|411
+The Office|Action|9|0|0|10|10|170|369
+Homeland|Sci-Fi|2|0|0|8|12|244|504
+Lost|Documentary|4|0|0|2|13|288|529
+Homeland|Documentary|10|0|0|8|6|249|399
+Money Heist|Fantasy|5|0|0|10|7|165|423
+The Witcher|Thriller|2|0|0|7|14|281|434
+The Office|Fantasy|9|0|0|5|6|103|239
+Brooklyn Nine-Nine|Sci-Fi|8|0|0|6|16|138|287
+This Is Us|Sci-Fi|1|0|0|7|12|277|387
+Loki|Comedy|6|0|0|6|8|161|302
+The Boys|Action|4|0|0|5|16|131|270
+The Queen's Gambit|Thriller|1|0|0|9|6|138|324
+Better Call Saul|Action|3|0|0|10|20|282|455
+Arrested Development|Horror|3|0|0|9|7|203|358
+The Office|Drama|2|0|0|4|10|176|449
+Dark|Action|4|0|0|1|19|287|569
+Peaky Blinders|Thriller|1|0|0|8|19|237|506
+The Marvelous Mrs. Maisel|Action|7|0|0|5|19|164|331
+House of Cards|Action|4|0|0|10|10|271|530
+The Crown|Documentary|3|0|0|3|22|209|313
+House of Cards|Romance|5|0|0|1|9|266|434
+Better Call Saul|Action|2|0|0|2|22|253|501
+Stranger Things|Comedy|6|0|0|3|15|248|455
+Breaking Bad|Drama|5|0|0|2|19|275|399
+WandaVision|Action|5|0|0|10|12|144|350
+Narcos|Sci-Fi|1|0|0|9|20|261|421
+Narcos|Comedy|8|0|0|7|6|109|321
+Brooklyn Nine-Nine|Romance|10|0|0|10|6|217|428
+The Handmaid's Tale|Thriller|3|0|0|6|24|273|483
+Fargo|Sci-Fi|1|0|0|10|15|126|358
+Brooklyn Nine-Nine|Action|6|0|0|1|18|292|554
+Mindhunter|Action|5|0|0|3|12|123|333
+Dexter|Drama|7|0|0|3|18|189|353
+Money Heist|Thriller|1|0|0|4|23|219|447
+Westworld|Thriller|3|0|0|4|6|266|402
+Fargo|Fantasy|4|0|0|4|23|121|224
+The Umbrella Academy|Fantasy|10|0|0|2|13|271|537
+Ozark|Sci-Fi|2|0|0|1|24|119|386
+BoJack Horseman|Fantasy|3|0|0|3|21|283|558
+Homeland|Action|5|0|0|8|19|204|427
+The Marvelous Mrs. Maisel|Action|10|0|0|5|11|259|377
+House of Cards|Documentary|7|0|0|1|20|259|366
