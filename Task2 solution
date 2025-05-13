@@ -1,0 +1,487 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <map>
+#include <ctime>
+#include <sstream>
+#include <fstream>
+#include <csignal>
+#include <cstdlib>
+
+using namespace std;
+
+class viewer;  
+viewer* currentUser = nullptr;
+
+string getTodayDate() {
+    time_t t = time(nullptr);
+    tm* now = localtime(&t);
+    char buf[20];
+    strftime(buf, sizeof(buf), "%Y-%m-%d %H:%M:%S", now);
+    return string(buf);
+}
+
+string getDateOnly() {
+    time_t t = time(nullptr);
+    tm* now = localtime(&t);
+    char buf[11];
+    strftime(buf, sizeof(buf), "%Y-%m-%d", now);
+    return string(buf);
+}
+
+string addDays(const string& dateStr, int days) {
+    tm t = {};
+    sscanf(dateStr.c_str(), "%d-%d-%d", &t.tm_year, &t.tm_mon, &t.tm_mday);
+    t.tm_year -= 1900;
+    t.tm_mon -= 1;
+    time_t time_epoch = mktime(&t);
+    time_epoch += days * 86400;
+    tm* future = localtime(&time_epoch);
+    char buf[11];
+    strftime(buf, sizeof(buf), "%Y-%m-%d", future);
+    return string(buf);
+}
+
+class Content {
+public:
+    string title, genre;
+    double rating;
+    virtual void printDetails() = 0;
+    virtual ~Content() {}
+};
+
+class Movie : public Content {
+public:
+    int duration, rentCost, purchaseCost;
+    Movie(string t, string g, double r, int d, int rc, int pc) {
+        title = t; genre = g; rating = r; duration = d;
+        rentCost = rc; purchaseCost = pc;
+    }
+    void printDetails() override {
+        cout << "[Movie] " << title << " (" << genre << ", Rating: " << rating
+             << ") | Duration: " << duration << " mins\n";
+    }
+};
+
+class TVShow : public Content {
+public:
+    int seasons, episodesPerSeason, rentPerSeason, purchasePerSeason;
+    TVShow(string t, string g, double r, int s, int eps, int rent, int buy) {
+        title = t; genre = g; rating = r; seasons = s; episodesPerSeason = eps;
+        rentPerSeason = rent; purchasePerSeason = buy;
+    }
+    void printDetails() override {
+        cout << "[TV Show] " << title << " (" << genre << ", Rating: " << rating
+             << ") | Seasons: " << seasons << ", Episodes/Season: " << episodesPerSeason << "\n";
+    }
+};
+
+struct RentalInfo {
+    string title;
+    string dateRented;
+    string returnDue;
+    int cost;
+};
+
+struct PurchaseInfo {
+    string title;
+    int cost;
+};
+
+struct movieInfo{
+    string title;
+    string genre;
+    double rating;
+    int duration;
+    int purchaseCost;
+    int rentcost;
+};
+
+struct tvshowInfo{
+    string title;
+    string genre;
+    double rating;
+    int seasons;
+    int episodes_eachSeason;
+    int rent_per_season;
+    int purchase_per_season;
+};
+
+class viewer {
+public:
+    string username;
+    string pin;
+    vector<PurchaseInfo> purchases;
+    vector<RentalInfo> rentals;
+    vector<movieInfo>movies;
+    vector<tvshowInfo>TvShows;
+
+    int pendingCharges = 0;
+
+    
+    void loadData() {
+        ifstream fin(username + "_data.txt");
+        if (!fin) return;
+
+        string title, dateRented, returnDue;
+        int cost;
+        
+        while (fin >> title >> dateRented >> returnDue >> cost) {
+            rentals.push_back({title, dateRented, returnDue, cost});
+            pendingCharges += cost;
+        }
+
+        while (fin >> title >> cost) {
+            purchases.push_back({title, cost});
+            pendingCharges += cost;
+        }
+    }
+
+    
+    void saveData() {
+        ofstream fout(username + "_data.txt", ios::trunc);
+        for (const RentalInfo& r : rentals) {
+            fout << r.title << " " << r.dateRented << " " << r.returnDue << " " << r.cost << "\n";
+        }
+        for (const PurchaseInfo& p : purchases) {
+            fout << p.title << " " << p.cost << "\n";
+        }
+    }
+    
+    
+};
+
+    
+class owner {
+public:
+    string username;
+    string pin;
+    vector<PurchaseInfo> purchases;
+    vector<RentalInfo> rentals;
+    vector<movieInfo>movies;
+    vector<tvshowInfo>TvShows;
+    string adminCode = "adminpass";
+    vector<Content*> catalog;
+
+    ~owner() {
+        for (Content* c : catalog) delete c;
+    }
+
+    void showCatalog() {
+        for (Content* c : catalog) c->printDetails();
+    }
+
+    void addMovieContent() {
+        catalog.push_back(new Movie("Inception", "Sci-Fi", 8.8, 148, 149, 299));
+        catalog.push_back(new TVShow("Dark", "Mystery", 9.0, 3, 10, 99, 199));
+        catalog.push_back(new Movie("RRR", "Action", 9.2, 180, 299, 399));
+        catalog.push_back(new TVShow("The Boys","Action",9.1,5,8,149,299));
+        catalog.push_back(new Movie("Bahubali_1","Action",9.9,180,159,399));
+        catalog.push_back(new Movie("Bahubali_2","Action",10,182,189,599));
+        catalog.push_back(new Movie("AvengersEndGame","Action",10,181,169,499));
+        catalog.push_back(new Movie("Eega","Action/Animation",9.6,170,149,399));
+        catalog.push_back(new Movie("Tenet","Sci-Fi",9.1,186,149,399));
+        catalog.push_back(new TVShow("Stranger-things","Horror",8.8,4,8,199,599));
+        catalog.push_back(new TVShow("Silo","Dystopia",8.1,2,10,149,299));
+        catalog.push_back(new TVShow("Wednesday","Horror",8,2,8,149,299));
+        catalog.push_back(new TVShow("PeakyBlinders","Horror",11,6,6,299,899));
+        catalog.push_back(new Movie("Maryadaramanna","Action",9.1,185,149,299));
+        catalog.push_back(new Movie("Avengers_Infinitywar","Action",9.9,170,149,299));
+        catalog.push_back(new Movie("Hridayakaleyam","Comedy",8.3,156,179,699));
+        catalog.push_back(new Movie("Magadheera","Action",9.1,166,189,599));
+    }
+
+    void addContent() {
+        cout << "1. Add Movie\n2. Add TV Show\nChoice: ";
+        int type; cin >> type; cin.ignore();
+        if (type == 1) {
+            string t, g; double r; int d, rc, pc;
+            cout << "Title: "; getline(cin, t);
+            cout << "Genre: "; getline(cin, g);
+            cout << "Rating: "; cin >> r;
+            cout << "Duration (mins): "; cin >> d;
+            cout << "Rent Cost: "; cin >> rc;
+            cout << "Purchase Cost: "; cin >> pc; cin.ignore();
+            catalog.push_back(new Movie(t, g, r, d, rc, pc));
+            cout << "Movie added.\n";
+        } else {
+            string t, g; double r; int s, eps, rc, pc;
+            cout << "Title: "; getline(cin, t);
+            cout << "Genre: "; getline(cin, g);
+            cout << "Rating: "; cin >> r;
+            cout << "Seasons: "; cin >> s;
+            cout << "Episodes/Season: "; cin >> eps;
+            cout << "Rent/Season: "; cin >> rc;
+            cout << "Purchase/Season: "; cin >> pc; cin.ignore();
+            catalog.push_back(new TVShow(t, g, r, s, eps, rc, pc));
+            cout << "TV Show added.\n";
+        }
+    }
+
+    void removeContent() {
+        cout << "Enter title to remove: ";
+        string title; getline(cin, title);
+        for (auto it = catalog.begin(); it != catalog.end(); ++it) {
+            if ((*it)->title == title) {
+                delete *it;
+                catalog.erase(it);
+                cout << "Content removed.\n";
+                return;
+            }
+        }
+        cout << "Content not found.\n";
+    }
+
+    void load_movieData() {
+    ifstream fin("_movie.txt");
+    if (!fin) return;
+
+    string type;
+    while (getline(fin, type)) {
+        string title, genre;
+        double rating;
+        
+        if (type == "Movie") {
+            int duration, rentCost, purchaseCost;
+            getline(fin, title);
+            getline(fin, genre);
+            fin >> rating >> duration >> rentCost >> purchaseCost;
+            fin.ignore(); 
+            catalog.push_back(new Movie(title, genre, rating, duration, rentCost, purchaseCost));
+        } else if (type == "TVShow") {
+            int seasons, episodesPerSeason, rentPerSeason, purchasePerSeason;
+            getline(fin, title);
+            getline(fin, genre);
+            fin >> rating >> seasons >> episodesPerSeason >> rentPerSeason >> purchasePerSeason;
+            fin.ignore(); 
+            catalog.push_back(new TVShow(title, genre, rating, seasons, episodesPerSeason, rentPerSeason, purchasePerSeason));
+        }
+    }
+}
+
+
+  void saveMovieData() {
+    ofstream fout("_movie.txt");
+    for (Content* content : catalog) {
+        if (Movie* m = dynamic_cast<Movie*>(content)) {
+            fout << "Movie\n";
+            fout << m->title << '\n'
+                 << m->genre << '\n'
+                 << m->rating << '\n'
+                 << m->duration << '\n'
+                 << m->rentCost << '\n'
+                 << m->purchaseCost << '\n';
+        } else if (TVShow* tv = dynamic_cast<TVShow*>(content)) {
+            fout << "TVShow\n";
+            fout << tv->title << '\n'
+                 << tv->genre << '\n'
+                 << tv->rating << '\n'
+                 << tv->seasons << '\n'
+                 << tv->episodesPerSeason << '\n'
+                 << tv->rentPerSeason << '\n'
+                 << tv->purchasePerSeason << '\n';
+        }
+    }
+}
+
+};
+
+void customer(viewer& user, owner& mgr) {
+    
+    user.loadData();
+    currentUser = &user; 
+
+
+    while (true) {
+        cout << "\n1. Browse Catalog\n2. Search\n3. Rent/Purchase\n4. Return\n5. Purchases\n6. Rentals\n7. Charges\n8. Logout\nChoice: ";
+        int ch; cin >> ch; cin.ignore();
+
+        if (ch == 1) mgr.showCatalog();
+        else if (ch == 2) {
+            string keyword; cout << "Enter title/genre: "; getline(cin, keyword);
+            for (Content* c : mgr.catalog) {
+                if (c->title.find(keyword) != string::npos || c->genre.find(keyword) != string::npos)
+                    c->printDetails();
+            }
+        }
+        else if (ch == 3) {
+            string title;
+            cout << "Enter title: ";
+            getline(cin, title);
+            for (Content* c : mgr.catalog) {
+                if (c->title == title) {
+                    string choice;
+                    cout << "Rent or Purchase? ";
+                    getline(cin, choice);
+                    if (choice == "Rent" || choice == "rent") {
+                        int months;
+                        cout << "Rent for how many months (1/3/6/12)? ";
+                        cin >> months;
+                        cin.ignore();
+
+                        int cost = 0;
+
+                        
+                        if (Movie* movie = dynamic_cast<Movie*>(c)) {
+                            cost = movie->rentCost * months; 
+                        }
+                        
+                        else if (TVShow* tvShow = dynamic_cast<TVShow*>(c)) {
+                            cost = tvShow->rentPerSeason * months; 
+                        }
+
+                        string start = getDateOnly();
+                        string due = addDays(start, months * 30); 
+                        user.rentals.push_back({title, start, due, cost});
+                        user.pendingCharges += cost;
+                        user.saveData();
+                        cout << "Rented. Return by: " << due << "\n";
+                    } else if (choice == "Purchase" || choice == "purchase") {
+                        int cost = 0;
+
+                        if (Movie* movie = dynamic_cast<Movie*>(c)) {
+                            cost = movie->purchaseCost;
+                        } else if (TVShow* tvShow = dynamic_cast<TVShow*>(c)) {
+                            cost = tvShow->purchasePerSeason;
+                        }
+
+                        user.purchases.push_back({title, cost});
+                        user.pendingCharges += cost;
+                        user.saveData();
+                        cout << "Purchased successfully for Rs." << cost << "\n";
+                    }
+                }
+            }
+        }
+        else if (ch == 4) {
+            for (size_t i = 0; i < user.rentals.size(); ++i)
+                cout << i + 1 << ". " << user.rentals[i].title << " | Due: " << user.rentals[i].returnDue << "\n";
+            cout << "Enter number to return: "; int ret; cin >> ret; cin.ignore();
+            if (ret >= 1 && ret <= (int)user.rentals.size()) {
+                user.rentals.erase(user.rentals.begin() + ret - 1);
+                user.saveData();
+                cout << "Returned.\n";
+            }
+        }
+        else if (ch == 5) {
+            for (const PurchaseInfo& p : user.purchases)
+                cout << p.title << " | Rs." << p.cost << "\n";
+        }
+        else if (ch == 6) {
+            for (const RentalInfo& r : user.rentals)
+                cout << r.title << " | Start: " << r.dateRented << " | Due: " << r.returnDue << " | Rs." << r.cost << "\n";
+        }
+        else if (ch == 7) {
+            cout << "Pending Charges: Rs." << user.pendingCharges << endl;
+        }
+        else break;
+    }
+
+   
+    user.saveData();
+    currentUser = nullptr; 
+}
+
+
+
+
+
+void admin(owner& mgr, map<string, viewer>& viewers) {
+    while (true) {
+        cout << "\n--- Admin Panel ---\n";
+        cout << "1. View Catalog\n2. Add Content\n3. Remove Content\n4. View Rentals\n5. View Charges\n6. View Users & PINs\n7. Logout\nChoice: ";
+        int ach; cin >> ach; cin.ignore();
+
+        if (ach == 1) mgr.showCatalog();
+        else if (ach == 2) {
+            mgr.addContent();
+            mgr.saveMovieData();  
+        }
+        else if (ach == 3) {
+            mgr.removeContent();
+            mgr.saveMovieData(); 
+        }
+        else if (ach == 4) {
+            for (const auto& pair : viewers) {
+                const viewer& c = pair.second;
+                if (!c.rentals.empty()) {
+                    cout << "- " << pair.first << ":\n";
+                    for (const RentalInfo& r : c.rentals)
+                        cout << "  " << r.title << " | Start: " << r.dateRented << " | Due: " << r.returnDue << " | Rs." << r.cost << "\n";
+                }
+            }
+        }
+        else if (ach == 5) {
+            for (const auto& pair : viewers)
+                cout << pair.first << " - Charges: Rs." << pair.second.pendingCharges << "\n";
+        }
+        else if (ach == 6) {
+            for (const auto& pair : viewers)
+                cout << "Username: " << pair.first << " | PIN: " << pair.second.pin << "\n";
+        }
+        else break;
+    }
+}
+
+void loadUsers(map<string, viewer>& viewers) {
+    ifstream fin("users.txt");
+    string uname, pin;
+    while (fin >> uname >> pin) {
+        viewers[uname] = viewer{uname, pin};
+    }
+}
+
+void saveUser(const string& uname, const string& pin) {
+    ofstream fout("users.txt", ios::app);
+    fout << uname << " " << pin << "\n";
+}
+
+
+void signalHandler(int signum) {
+    cout << "\n[!] Ctrl+C detected. Cleaning up...\n";
+    if (currentUser) {
+        currentUser->saveData();
+        cout << "Data saved for user: " << currentUser->username << "\n";
+    }
+    exit(signum);
+}
+
+
+int main() {
+    map<string, viewer> viewers;
+    owner mgr;
+
+    loadUsers(viewers);         
+    mgr.load_movieData();       
+    signal(SIGINT, signalHandler);  
+    while (true) {
+        cout << "\nWelcome to Netflix CLI\n";
+        cout << "1. Login\n2. Signup\n3. Admin Access\n4. Exit\nChoice: ";
+        int opt; cin >> opt; cin.ignore();
+
+        if (opt == 1) {
+            string uname, pin;
+            cout << "Username: "; getline(cin, uname);
+            cout << "PIN: "; getline(cin, pin);
+            if (viewers.count(uname) && viewers[uname].pin == pin)
+                customer(viewers[uname], mgr);
+            else cout << "Invalid login.\n";
+        }
+        else if (opt == 2) {
+            string uname, pin;
+            cout << "Choose username: "; getline(cin, uname);
+            cout << "Set 4-digit PIN: "; getline(cin, pin);
+            viewers[uname] = viewer{uname, pin};
+            saveUser(uname, pin);
+            cout << "Signup complete.\n";
+        }
+        else if (opt == 3) {
+            string code;
+            cout << "Enter admin code: "; getline(cin, code);
+            if (code == mgr.adminCode) admin(mgr, viewers);
+            else cout << "Access denied.\n";
+        }
+        else break;
+    }
+    return 0;
+}
