@@ -1,0 +1,488 @@
+#include<bits/stdc++.h>
+#include <fstream>
+#include <filesystem>
+#include <ctime>
+using namespace std;
+namespace fs = std::filesystem;
+
+// Base class representing common properties of contents
+class contents{
+    public:
+        string title;
+        string genre;
+        float rating;
+        bool is_rented;
+        bool is_purchased;
+};
+
+// Derived class representing a Movie
+class movie : public contents{
+    public:
+        int duration;
+        float rent_cost;
+        float purchase_cost;
+
+        movie(string t, string g, float r, int d, float r_cost, float p_cost){
+            title = t;
+            genre = g;
+            rating = r;
+            is_rented = false;
+            is_purchased = false;
+            duration = d;
+            rent_cost = r_cost;
+            purchase_cost = p_cost;
+        }
+};
+
+// Derived class representing a TV Show
+class tv_show : public contents{
+    public:
+        int nseasons;
+        int nepisodes_per_season;
+        float rent_cost;
+        float purchase_cost;
+
+        tv_show(string t, string g, float r, int ns, int neps, float r_cost, float p_cost){
+            title = t;
+            genre = g;
+            rating = r;
+            is_rented = false;
+            is_purchased = false;
+            nseasons = ns;
+            nepisodes_per_season = neps;
+            rent_cost = r_cost;
+            purchase_cost = p_cost;
+        }
+};
+
+// Handles user signup process
+void signup() {
+    string username,password;
+    float due = 0;
+    cout << "ENTER YOUR USERNAME IN THE FORM OF SNAKE_CASE IDENTIFIER (e.g. abc_def)" << endl;
+    cin >> username;
+
+    string filepath = "data/users" + username + ".txt";
+    if (fs::exists(filepath)){
+        cout << "Username already taken!! Try another one" << endl; //Uniqueness of username
+        return;
+    }
+    
+    //Stored all usernames alog with their dues
+    fs::create_directories("data/users");
+    std::ofstream all_file("data/users/allusernames.txt", ios::app);
+    all_file << username << " " << due << "\n";
+
+    cout << "Enter password" << endl;
+    cin >> password;
+
+    std::ofstream file(filepath);
+    file << username << " " << password << "\n";
+    file.close();
+
+    cout << "Signup successful.";
+    return;
+}
+
+
+//Handles user login
+bool login() {
+    string username,password;
+    cout << "Enter your username" << endl;
+    cin >> username;
+
+    string filepath = "data/users/" + username + ".txt";
+    if (!fs::exists(filepath)){
+        cout << "User not found!" << endl;
+        return;
+    }
+
+    std::ifstream file(filepath);
+    string stored_username, stored_password;
+    file >> stored_username >> stored_password;
+    file.close();
+
+    cout << "Enter password" << endl;
+    cin >> password;
+
+    if(password == stored_password){
+        cout << "Login successful" << "\n" << "Welcome" << endl;
+        return true;
+    }
+    else{
+        cout << "Login failed" << endl;
+        return false;
+    }
+}
+
+// Creates the admin user file
+void admin_signup(){
+    fs::create_directory("data/admin");
+    std::ofstream file("data/admin/owner.txt");
+    file << "owner" << " " << "admin";
+}
+
+// Handles admin login
+bool admin_login(){
+    string username,password;
+    cout << "Enter your username" << endl;
+    cin >> username;
+
+    string filepath = "data/admin" + username + ".txt";
+    if (!fs::exists(filepath)){
+        cout << "Admin not found!" << endl;
+        return false;
+    }
+
+    string stored_username, stored_password;
+    std::ifstream file(filepath);
+    file >> stored_username >> stored_password;
+
+    cout << "Enter password" << endl;
+    cin >> password;
+    if(password == stored_password){
+        cout << "login successful!" << endl;
+        return true;
+    }
+    else{
+        cout << "login failed" << endl;
+        return false;
+    }
+}
+
+// Saves a movie to file system
+void upload_movie(movie inst){
+    string path = "data/movies/" + inst.genre ;
+    fs::create_directories(path);
+    
+    string all_path = "data/movies/all_movies.txt";
+    std::ofstream all_file(all_path, ios::app);
+    all_file << inst.title << " " << inst.genre << "\n";
+
+    string ind_path = "data/movies/" + inst.genre + "/all_movies.txt";
+    std::ofstream ind_file(ind_path, ios::app);
+    ind_file << inst.title << "\n";
+
+    string filepath = "data/movies/" + inst.genre + "/" + inst.title + ".txt";
+
+    std::ofstream file(filepath);
+    file << "Title :" << inst.title << "\n";
+    file << "Genre :" << inst.genre << "\n";
+    file << "Rating :" << inst.rating << "\n";
+    file << "Duration :" << inst.duration << "\n";
+    file << "Rent Cost per month:" << inst.rent_cost << "\n";
+    file << "Purchase Cost :" << inst.purchase_cost << "\n";
+    if(inst.is_purchased){
+        file << "Purchased : Yes\n";
+    }
+    else{
+        file << "Purchased : No\n";
+    }
+    
+    if(inst.is_rented){
+        file << "Rented : Yes\n";
+    }
+    else{
+        file << "Rented : No\n";
+    }
+    file.close();
+
+    cout << "Movie saved in " << inst.genre << "genre" << endl;
+}
+
+// Checks if movie exists
+bool check_movie(string title){
+    std::ifstream file("data/movies/allmovies.txt");
+    string stored_title;
+    string genre;
+    while(file >> stored_title >> genre){
+        if(stored_title == title){
+            cout << "Movie found";
+            
+            string line;
+            ifstream nfile("data/movies/"+ genre+ "/" + title + ".txt");
+            while(getline(nfile, line)){
+                cout << line << endl;
+            }
+            file.close();
+            return true;
+        }
+    }
+    return false;
+}
+
+//Saves a TV show to the file system
+void upload_tvshow(tv_show inst){
+    string path = "data/tvshows/" + inst.title + ".txt";
+    fs::create_directories(path);
+    
+    string all_path = "data/tvshows/alltvshows.txt";
+    std::ofstream all_file(all_path, ios::app);
+    all_file << inst.title << " " << inst.genre << "\n";
+
+    std::ofstream file(path);
+    file << "Title :" << inst.title << "\n";
+    file << "Rating :" << inst.rating << "\n";
+    file << "Number of seasons :" << inst.nseasons << "\n";
+    file << "Numeber of episodes per season :" << inst.nepisodes_per_season << "\n";
+    file << "Rent Cost per month:" << inst.rent_cost << "\n";
+    file << "Purchase Cost :" << inst.purchase_cost << "\n";
+    if(inst.is_purchased){
+        file << "Purchased : Yes\n";
+    }
+    else{
+        file << "Purchased : No\n";
+    }
+    
+    if(inst.is_rented){
+        file << "Rented : Yes\n";
+    }
+    else{
+        file << "Rented : No\n";
+    }
+    file.close();
+
+    cout << "TV show is saved successfully";
+}
+
+//Checks if the TV show exists
+bool check_tvshows(string title){
+    std::ifstream file("data/tvshpws/alltvshows.txt");
+    string stored_title;
+    while(file >> stored_title){
+        if(stored_title == title){
+            cout << "TV show found";
+            
+            string line;
+            ifstream nfile("data/tvshows/" + title + ".txt");
+            while(getline(nfile, line)){
+                cout << line << endl;
+            }
+            file.close();
+            return true;
+        }
+    }
+    return false;
+}
+
+//Gets the current date for the renting process
+string get_date(){
+    time_t now = time(0); // Get the current time in sec
+    tm *ltm = localtime(&now); // Convert to local time (date)
+
+    int day = ltm->tm_mday;
+    int month = ltm->tm_mon + 1;
+    int year = 1900 + ltm->tm_year;
+
+    string date = to_string(day) + "-" + to_string(month) + "-" + to_string(year);
+    return date;
+}
+
+//Gets the date of return corresponding to the date of renting
+string date_of_return(){
+    time_t now = time(0);
+    now = now + 2628288; // A month has 26,28,288 seconds 
+    tm *ltm = localtime(&now); 
+
+    int day = ltm->tm_mday;
+    int month = ltm->tm_mon + 1;
+    int year = 1900 + ltm->tm_year;
+
+    string date = to_string(day) + "-" + to_string(month) + "-" + to_string(year);
+    return date;
+}
+
+//Function for updating the dues in the all usernames file
+void update_due(float price, string username){
+    string filepath = "data/users/allusernames.txt";
+    std::ifstream file(filepath, ios::app);
+    string stored_username;
+    float stored_due;
+    while(file >> stored_username >> stored_due){
+        if(stored_username == username){
+            stored_due += price;
+            break;
+        }
+    }
+    return;
+}
+
+//For purchasing movie
+void purchase_movie(string title, string username){
+    string filepath = "data/users/" + username + ".txt";
+    std::ofstream file(filepath, ios::app);
+    file << "Movie Purchased : " << title << "\n";
+    file.close();
+}
+
+//For purchasing the TV show
+void purchase_tvshow(string title, string username){
+    string filepath = "data/users/" + username + ".txt";
+    std::ofstream file(filepath, ios::app);
+    file << "TV show Purchased : " << title << "\n";
+    file.close();
+}
+
+//For renting the movie
+void rent_movie(string title, string username){
+    string filepath = "data/users/" + username + ".txt";
+    std::ofstream file(filepath, ios::app);
+    file << "Movie Rented : " << title << "\n";
+    file << "Date Rented : " << get_date() << "\n";
+    file << "Last Date of return :" << date_of_return() << "\n";
+    file.close();
+}
+
+//For renting the TV show
+void rent_tvshow(string title, string username){
+    string filepath = "data/users/" + username + ".txt";
+    std::ofstream file(filepath, ios::app);
+    file << "Movie Rented : " << title << "\n";
+    file << "Date Rented : " << get_date() << "\n";
+    file << "Last Date of return :" << date_of_return() << "\n";
+    file.close();
+}
+
+//A general function to print the contents out of a file
+void print_content(string filepath){
+    ifstream file(filepath);
+    string line;
+    while (getline(file, line)){
+        cout << line << endl;
+    }
+}
+
+int main(){
+    while (true){
+        admin_signup();
+
+        int choice;
+        cout << "\n1.User Sign Up\n2. User Login\n3.Admin Login\n4. Exit\nEnter choice: ";
+        cin >> choice;
+        if (choice == 1){
+            signup();
+        }
+        if (choice == 2){
+            if(login()){
+                cout << "Such a boring summer \n";
+                int response;
+                cout << "Ready for some screen-time magic? Press 1 to dive into a blockbuster movie, or 2 to binge a top-tier TV show! ";
+                cin >> response;
+                if(response == 1){
+                    int choice;
+                    cout << "Your movie adventure begins here! Press 1 to explore our full movie vault, or press 2 to hunt down that perfect flick you're craving";
+                    cin >> choice;
+                    if(choice == 1){
+                        string genre;
+                        cout << "What are you in the mood for today?\n";
+                        cout << "Type the genre you'd like to explore from the list below (in small letters, please!):\n";
+                        cout << "action, adventure, comedy, drama, horror, science fiction, romance, thriller, fantasy, mystery\n";
+                        cin >> genre;
+                        print_content("data/movies/" + genre + "/all_movies.txt");//Prints all movies in that genre
+                        string name;
+                        cout << "Once you've found the one you'd like to watch, type the exact movie title in small letters to continue or type exit to give a fresh start";
+                        cin >> name;
+                        if(name == "exit") continue;
+                        print_content("data/movies/"+ genre+ "/" + name + ".txt");//Prints the info about that particular movie
+                        int choice;
+                        cout << "Press 1 to rent the movie or 2 to purchase it or 3 to get back to main menu";
+                        cin >> choice;
+                        string username;
+                        cout << "Enter your username again";
+                        cin >> username;
+                        if(choice == 1){
+                            rent_movie(name, username);
+                        }
+                        else if(choice == 2){
+                            purchase_movie(name, username);
+                        }
+                        else if(choice == 3) continue;
+                    }
+                    else if(choice == 2){
+                        print_content("data/tvshows/alltvshows.txt");
+                        string name;
+                        cout << "Once you've found the one you'd like to watch, type the exact title in small letters to continue or type exit to give a fresh start";
+                        cin >> name;
+                        if(name == "exit") continue;
+                        print_content("data/tvshows/" + name + ".txt");
+                        int choice;
+                        cout << "Press 1 to rent the tvshow or 2 to purchase it or 3 to get back to main menu";
+                        cin >> choice;
+                        string username;
+                        cout << "Enter your username again";
+                        cin >> username;
+                        if(choice == 1){
+                            rent_tvshow(name, username);
+                        }
+                        else if(choice == 2){
+                            purchase_tvshow (name, username);
+                        }
+                        else if(choice == 3) continue;
+                    }
+                }
+            }
+        }
+        if(choice == 3){
+            if(admin_login()){
+                int response;
+                cin >> response;
+                cout << "Enter 1 to upload a movie or tv show, press 2 to delete one and 3 to checkout the dues";
+                if(response == 1){
+                    int choice;
+                    cout << "Enter 1 to upload a movie or 2 to upload a tv show";
+                    cin >> choice;
+                    if(choice == 1){
+                        cout << "Enter the following details of the movie : ";
+                        string title, genre;
+                        float rating, rent_cost, purchase_cost;
+                        int duration;
+
+                        cout << "Enter title: ";
+                        cin >> title;
+                        cout << "Enter genre: ";
+                        cin >> genre;
+                        cout << "Enter rating: ";
+                        cin >> rating;
+                        cout << "Enter duration (in minutes): ";
+                        cin >> duration;
+                        cout << "Enter rent cost: ";
+                        cin >> rent_cost;
+                        cout << "Enter purchase cost: ";
+                        cin >> purchase_cost;
+
+                        movie m(title, genre, rating, duration, rent_cost, purchase_cost);
+                        upload_movie(m);
+                    }
+                    if (choice == 2){
+                        cout << "Enter the following details of the tv show : ";
+
+                        string title, genre;
+                        float rating, rent_cost, purchase_cost;
+                        int nseasons, nepisodes;
+
+                        cout << "Enter title: ";
+                        cin >> title;
+                        cout << "Enter genre: ";
+                        cin >> genre;
+                        cout << "Enter rating: ";
+                        cin >> rating;
+                        cout << "Enter number of seasons: ";
+                        cin >> nseasons;
+                        cout << "Enter number of episodes per season: ";
+                        cin >> nepisodes;
+                        cout << "Enter rent cost: ";
+                        cin >> rent_cost;
+                        cout << "Enter purchase cost: ";
+                        cin >> purchase_cost;
+
+                        tv_show show(title, genre, rating, nseasons, nepisodes, rent_cost, purchase_cost);
+                        upload_tvshow(show);
+                    }
+                }
+                else if(response == 3){
+                    print_content("data/users/allusernames.txt");//shows the dues
+                }
+            }
+        }
+    }
+}
