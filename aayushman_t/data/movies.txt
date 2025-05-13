@@ -1,0 +1,51 @@
+The Starfarer|Sci-Fi|8.2|2.15|3.99|14.99|0|0
+Midnight Run|Action|7.8|1.95|4.49|12.99|0|0
+Whispers in the Dark|Thriller|6.9|1.75|3.49|11.99|0|0
+Summer Dreams|Romance|8|2|3.99|13.99|0|0
+The Last Frontier|Adventure|7.5|2.25|4.99|15.99|0|0
+Echoes of Time|Drama|8.5|2.3|4.29|14.49|0|0
+Haunted Shadows|Horror|6.5|1.6|3.29|10.99|0|0
+City of Sparks|Comedy|7.2|1.85|3.79|12.49|0|0
+Quantum Leap|Sci-Fi|8.7|2.45|4.79|16.99|0|0
+The Iron Oath|Action|7.9|2.1|4.59|13.99|0|0
+Silent Waves|Drama|8.3|2.05|4.19|14.29|0|0
+Moonlit Secrets|Romance|7.7|1.9|3.89|12.99|0|0
+Crimson Tide|Thriller|7.4|2|4.39|13.49|0|0
+Jungle Quest|Adventure|7.1|2.2|4.69|15.49|0|0
+Ghostly Whispers|Horror|6.8|1.55|3.39|11.49|0|0
+Laugh Factory|Comedy|7.6|1.7|3.69|12.29|0|0
+Nebula Rising|Sci-Fi|8.4|2.35|4.89|16.49|0|0
+Bullet Storm|Action|7.3|1.8|4.29|13.29|0|0
+Tears of Tomorrow|Drama|8.1|2.25|4.09|14.19|0|0
+Love in Bloom|Romance|7.9|1.95|3.99|13.79|0|0
+Dark Alley|Thriller|6.7|1.65|3.59|11.99|0|0
+Skyward Bound|Adventure|7.8|2.3|4.99|15.79|0|0
+Phantom Manor|Horror|6.6|1.5|3.49|11.29|0|0
+Giggle Fest|Comedy|7.4|1.75|3.79|12.59|0|0
+Starlight Chronicles|Sci-Fi|8.6|2.5|4.99|17.99|0|0
+Rogue Agent|Action|7.7|2|4.49|13.99|0|0
+Fading Echoes|Drama|8.2|2.15|4.19|14.39|0|0
+Hearts Entwined|Romance|7.8|1.85|3.89|13.49|0|0
+Shadow Conspiracy|Thriller|7|1.9|4.29|12.99|0|0
+Wild Expedition|Adventure|7.6|2.25|4.79|15.29|0|0
+Grave Encounters|Horror|6.4|1.45|3.29|10.99|0|0
+Chuckle Town|Comedy|7.5|1.8|3.69|12.39|0|0
+Galactic Odyssey|Sci-Fi|8.3|2.4|4.89|16.79|0|0
+Thunder Strike|Action|7.9|1.95|4.59|13.79|0|0
+Broken Promises|Drama|8|2.2|4.09|14.09|0|0
+Starry Nights|Romance|7.7|1.9|3.99|13.29|0|0
+Hidden Truths|Thriller|6.9|1.7|3.59|11.79|0|0
+Mountain Quest|Adventure|7.4|2.3|4.69|15.19|0|0
+Cursed Woods|Horror|6.7|1.6|3.39|11.39|0|0
+Laugh Riot|Comedy|7.3|1.75|3.79|12.49|0|0
+Cosmic Voyage|Sci-Fi|8.5|2.45|4.99|17.49|0|0
+Blaze of Glory|Action|7.8|2|4.49|13.69|0|0
+Silent Tears|Drama|8.1|2.1|4.19|14.29|0|0
+Forever Yours|Romance|7.6|1.85|3.89|13.19|0|0
+Night Stalker|Thriller|7.1|1.8|4.29|12.89|0|0
+Desert Trek|Adventure|7.5|2.25|4.79|15.39|0|0
+Haunted Legacy|Horror|6.5|1.5|3.29|11.19|0|0
+Funny Bones|Comedy|7.4|1.7|3.69|12.29|0|0
+Interstellar Dreams|Sci-Fi|8.4|2.5|4.99|17.29|0|0
+Final Stand|Action|7.7|1.95|4.49|13.59|0|0
+dummy|dummy|0|0|0|0|0|0
