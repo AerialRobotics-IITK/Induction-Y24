@@ -1,0 +1,5 @@
+Rented_Movies:
+interstellar
+Purchased_Movies:
+Dues: 0
+Dues: 32
