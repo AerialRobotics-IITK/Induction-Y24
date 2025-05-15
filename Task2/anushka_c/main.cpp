@@ -1,32 +1,3 @@
-/*#include <iostream>//public : accessible everywhere
-#include <queue>//private : accessible only inside the class 
-#include <vector>//protected : accessible inside class and to its derived classes 
-#include <tuple>//constructor is automatically called everytime a new object is created 
-#include <climits>
-using namespace std;
-
-class Student {
-public:
-    Student() {
-        cout<<"constructor called";
-    }
-    int rollNo;
-    string name;
-    void changeName(string newName) {
-        name = newName;
-    }
-};
-int main() {
-    Student s1;//constructor called
-    s1.name = "riyansh";
-    string name2 = "vidhyan";
-    s1.changeName(name2);
-    cout<<s1.name;
-    cout<<"hello";
-    return 0;
-}*/
-// movies, tv shows, browse, rent and return, store a memory of what has been done, CLI, login/sign up, uniqueness of
-//usernames, browse content by category or genre, */
 #include <iostream>
 #include <vector>
 #include <map>
